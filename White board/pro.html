@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="2style.css">
+    <html>
+        <head>
+            <title>White Board</title>
+        </head>
+        <body>
+            <div>White Board</div>
+            <canvas id="canvas" width="1100" height="530"></canvas>
+            <script>
+                var canvas = document.getElementById('canvas');
+                var context = canvas.getContext('2d');
+                var isDrawing = false;
+                var currentX = 0;
+                var currentY = 0;
+                canvas.addEventListener('mousedown', function(e){
+                    isDrawing = true;
+                    currentX = e.clientX - canvas.offsetLeft;
+                    currentY = e.clientY - canvas.offsetTop;
+                });
+
+                canvas.addEventListener('mousemove', function(e){
+                    if(isDrawing === true){
+                        draw(currentX, currentY, e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                        currentX = e.clientX - canvas.offsetLeft;
+                        currentY = e.clientY - canvas.offsetTop;
+                    }
+                });
+
+                canvas.addEventListener('mouseup', function(e){
+                    isDrawing = false;
+                });
+                function draw(x1,y1,x2,y2){
+                    context.beginPath();
+                    context.strokeStyle = 'black';
+                    context.lineWidth = 3.5;
+                    context.moveTo(x1,y1);
+                    context.lineTo(x2,y2);
+                    context.stroke();
+                    context.closePath();
+                }
+            </script>
+            <div><button type="button" onclick="location.reload();" class="btn"></button>
+            </div>
+        </body>
+    </html>
+    </head>
+</html>
